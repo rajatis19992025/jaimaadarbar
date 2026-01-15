@@ -1,710 +1,589 @@
 <!doctype html>
 <html lang="en">
+
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Jai Maa Darbar | Coming Soon</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#12081e" />
+    <title>Jai Maa Darbar — Coming Soon</title>
+    <meta name="description"
+        content="Jai Maa Darbar — Coming Soon. Acharya Krishna Gopal Pathak Shri Ji. Maa Baglamukhi Sadhak." />
 
-  <!-- Favicon (place favicon.ico in same folder) -->
-  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+    <style>
+        :root {
+            --bgA: #070613;
+            --bgB: #12081e;
+            --bgC: #2a0a18;
+            --card: rgba(255, 255, 255, .92);
+            --text: #161a22;
+            --muted: #5b6674;
+            --gold: #ffd36a;
+            --saffron: #ffb300;
+            --rose: #ff6f61;
+        }
 
-  <!-- Premium fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+        * {
+            box-sizing: border-box;
+        }
 
-  <style>
-    :root{
-      --bg0:#07060a;
-      --bg1:#0d0a14;
-      --stroke: rgba(255,255,255,.16);
+        html,
+        body {
+            height: 100%;
+        }
 
-      --gold0:#fff1b6;
-      --gold1:#ffd36d;
-      --gold2:#ffb33f;
+        body {
+            margin: 0;
+            font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Noto Sans";
+            color: var(--text);
+            background:
+                radial-gradient(1200px 600px at 30% 20%, rgba(255, 179, 0, .12), transparent 55%),
+                radial-gradient(900px 520px at 80% 30%, rgba(98, 181, 229, .10), transparent 60%),
+                linear-gradient(135deg, var(--bgA), var(--bgB) 45%, var(--bgC));
+            overflow-x: hidden;
+        }
 
-      --saff0:#ff7a18;
-      --saff1:#ffb347;
+        #starfield {
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            pointer-events: none;
+        }
 
-      --text:#f5f1ff;
-      --muted: rgba(245,241,255,.78);
+        .auraOverlay {
+            position: fixed;
+            inset: -20%;
+            z-index: -1;
+            pointer-events: none;
+            background:
+                radial-gradient(circle at 22% 18%, rgba(255, 211, 106, .16), transparent 60%),
+                radial-gradient(circle at 78% 25%, rgba(255, 111, 97, .12), transparent 62%),
+                radial-gradient(circle at 55% 78%, rgba(255, 255, 255, .06), transparent 65%),
+                conic-gradient(from 210deg, rgba(255, 179, 0, .08), rgba(98, 181, 229, .07), rgba(255, 111, 97, .06), rgba(255, 179, 0, .08));
+            filter: blur(26px);
+            opacity: .95;
+            animation: slowGlow 18s ease-in-out infinite;
+            transform-origin: center;
+        }
 
-      --shadow: 0 30px 80px rgba(0,0,0,.45);
-      --radius: 28px;
+        @keyframes slowGlow {
 
-      --max: 1120px;
-    }
+            0%,
+            100% {
+                transform: scale(1.02) rotate(-2deg);
+                opacity: .85;
+            }
 
-    *{ box-sizing:border-box; }
-    html,body{ height:100%; }
-    body{
-      margin:0;
-      color:var(--text);
-      font-family:Poppins, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+            50% {
+                transform: scale(1.06) rotate(2deg);
+                opacity: 1;
+            }
+        }
 
-      /* Base galaxy tone */
-      background:
-        radial-gradient(1200px 700px at 15% 10%, rgba(255,179,71,.14), transparent 60%),
-        radial-gradient(1000px 700px at 85% 15%, rgba(255,122,24,.12), transparent 55%),
-        radial-gradient(900px 600px at 70% 90%, rgba(160,100,255,.14), transparent 60%),
-        linear-gradient(160deg, var(--bg0), var(--bg1));
+        @media (prefers-reduced-motion: reduce) {
+            .auraOverlay {
+                animation: none !important;
+            }
+        }
 
-      overflow-x:hidden;
-    }
+        .wrap {
+            min-height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px 14px;
+        }
 
-    /* Star/planet canvas */
-    canvas#cosmos{
-      position: fixed;
-      inset: 0;
-      z-index: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      opacity: .95;
-    }
+        .card {
+            width: min(980px, 100%);
+            background: var(--card);
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 18px 60px rgba(0, 0, 0, .45);
+            border: 1px solid rgba(255, 255, 255, .18);
+            backdrop-filter: blur(8px);
+        }
 
-    /* Aurora / nebula layer */
-    .aurora{
-      position:fixed;
-      inset:-30vmax;
-      z-index: 1; /* above cosmos, below content */
-      pointer-events:none;
-      filter: blur(30px) saturate(125%);
-      opacity:.75;
-      background:
-        radial-gradient(closest-side at 30% 30%, rgba(255,211,109,.26), transparent 60%),
-        radial-gradient(closest-side at 70% 25%, rgba(255,122,24,.22), transparent 62%),
-        radial-gradient(closest-side at 60% 75%, rgba(160,100,255,.18), transparent 64%),
-        radial-gradient(closest-side at 25% 75%, rgba(255,179,71,.18), transparent 64%);
-      animation: drift 14s ease-in-out infinite alternate;
-    }
-    @keyframes drift{
-      from{ transform: translate3d(-2%, -1%, 0) rotate(-2deg) scale(1.02); }
-      to  { transform: translate3d( 2%,  1%, 0) rotate( 2deg) scale(1.06); }
-    }
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr;
+        }
 
-    /* Mandala-like overlay */
-    .pattern{
-      position:fixed;
-      inset:0;
-      z-index: 2;
-      pointer-events:none;
-      opacity:.14;
-      background:
-        radial-gradient(circle at 20% 30%, rgba(255,255,255,.10) 0 1px, transparent 2px 100%),
-        radial-gradient(circle at 75% 20%, rgba(255,255,255,.08) 0 1px, transparent 2px 100%),
-        radial-gradient(circle at 35% 75%, rgba(255,255,255,.07) 0 1px, transparent 2px 100%),
-        repeating-radial-gradient(circle at 50% 50%, rgba(255,255,255,.04) 0 1px, transparent 1px 20px);
-      mix-blend-mode: overlay;
-    }
+        @media (min-width: 860px) {
+            .grid {
+                grid-template-columns: 0.95fr 1.05fr;
+            }
+        }
 
-    main.hero{
-      min-height:100vh;
-      display:grid;
-      place-items:center;
-      padding: clamp(18px, 4vw, 48px);
-      position:relative;
-      z-index: 5;
-    }
+        .media {
+            padding: 18px;
+            background:
+                radial-gradient(650px 260px at 28% 14%, rgba(255, 211, 106, .22), transparent 60%),
+                linear-gradient(180deg, rgba(0, 0, 0, .05), rgba(0, 0, 0, .02));
+        }
 
-    .wrap{
-      width:min(var(--max), 100%);
-      display:grid;
-      grid-template-columns: 0.9fr 1.1fr;
-      gap: clamp(18px, 3.6vw, 44px);
-      align-items:center;
-    }
+        @media (min-width: 860px) {
+            .media {
+                padding: 28px;
+            }
+        }
 
-    .card{
-      position:relative;
-      background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.06));
-      border:1px solid var(--stroke);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      overflow:hidden;
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-    }
-    .card::before{
-      content:"";
-      position:absolute;
-      inset:-2px;
-      border-radius: inherit;
-      background:
-        linear-gradient(120deg,
-          rgba(255,211,109,.30),
-          rgba(255,122,24,.16),
-          rgba(160,100,255,.15),
-          rgba(255,211,109,.26)
-        );
-      filter: blur(16px);
-      opacity:.55;
-      z-index:0;
-    }
-    .card > *{ position:relative; z-index:1; }
+        .imgBorder {
+            --b: 6px;
+            /* border thickness */
+            --r: 18px;
+            /* outer radius */
+            display: block;
+            padding: var(--b);
+            border-radius: var(--r);
 
-    /* Left: Portrait */
-    .portrait{ padding: clamp(14px, 2.4vw, 22px); }
+            background: linear-gradient(90deg,
+                    #ffd36a,
+                    #ffb300,
+                    #62b5e5,
+                    #ffffff,
+                    #ffd36a);
+            background-size: 300% 300%;
+            animation: borderGradientMove 3.5s linear infinite;
 
-    .portrait-frame{
-      position:relative;
-      border-radius: calc(var(--radius) - 8px);
-      overflow:hidden;
-      border: 1px solid rgba(255,255,255,.16);
-      box-shadow: 0 18px 50px rgba(0,0,0,.35);
-      transform: translateZ(0);
-    }
-    .portrait-frame::before{
-      content:"";
-      position:absolute;
-      inset:-35%;
-      background:
-        conic-gradient(from 0deg,
-          rgba(255,241,182,.0),
-          rgba(255,211,109,.55),
-          rgba(255,122,24,.35),
-          rgba(160,100,255,.30),
-          rgba(255,211,109,.55),
-          rgba(255,241,182,.0)
-        );
-      filter: blur(12px);
-      opacity:.85;
-      animation: spin 10s linear infinite;
-      z-index:0;
-    }
-    @keyframes spin{ to{ transform: rotate(360deg);} }
+            box-shadow: 0 12px 34px rgba(0, 0, 0, .22);
+        }
 
-    .portrait-frame::after{
-      content:"";
-      position:absolute;
-      inset:0;
-      background: radial-gradient(120% 90% at 50% 20%, transparent 35%, rgba(0,0,0,.30) 100%);
-      z-index:2;
-      pointer-events:none;
-    }
+        @keyframes borderGradientMove {
+            0% {
+                background-position: 0% 50%;
+            }
 
-    .portrait img{
-      width:100%;
-      height: min(66vh, 680px);
-      object-fit: cover;
-      display:block;
-      position:relative;
-      z-index:1;
-      transform: scale(1.02);
-    }
+            100% {
+                background-position: 100% 50%;
+            }
+        }
 
-    .badge{
-      position:absolute;
-      left: 16px;
-      bottom: 16px;
-      padding: 10px 12px;
-      border-radius: 14px;
-      background: rgba(0,0,0,.34);
-      border: 1px solid rgba(255,255,255,.14);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      max-width: 90%;
-    }
-    .badge .small{
-      font-size: .78rem;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,.82);
-    }
-    .badge .darbar{
-      font-family: Cinzel, serif;
-      font-size: 1.12rem;
-      margin-top: 2px;
-      background: linear-gradient(90deg, var(--gold0), var(--gold2));
-      -webkit-background-clip:text;
-      background-clip:text;
-      color: transparent;
-      text-shadow: 0 6px 18px rgba(255,179,71,.18);
-    }
+        @media (prefers-reduced-motion: reduce) {
+            .imgBorder {
+                animation: none !important;
+            }
+        }
 
-    /* Right: Copy */
-    .copy{ padding: clamp(18px, 3vw, 34px); }
+        /* REPLACE your existing .photo block with this */
+        .photo {
+            width: 100%;
+            aspect-ratio: 4 / 5;
+            object-fit: cover;
+            border-radius: calc(18px - 6px);
+            /* matches --r - --b */
+            display: block;
+            background: #f3f4f6;
 
-    .label{
-      display:inline-flex;
-      gap:.55rem;
-      align-items:center;
-      padding: 10px 12px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.06);
-      color: rgba(255,255,255,.86);
-      font-size: .92rem;
-      letter-spacing: .02em;
-    }
-    .dot{
-      width:10px; height:10px; border-radius:50%;
-      background: radial-gradient(circle, var(--gold1), var(--saff0));
-      box-shadow: 0 0 0 6px rgba(255,179,71,.12);
-    }
+            border: none;
+            /* border now comes from .imgBorder */
+            box-shadow: none;
+        }
 
-    h1{
-      margin: 14px 0 8px;
-      font-family: Cinzel, serif;
-      font-weight: 700;
-      font-size: clamp(1.45rem, 2.5vw + .8rem, 3.05rem);
-      line-height: 1.12;
-      letter-spacing: .02em;
-    }
 
-    .title{
-      margin:0 0 18px;
-      font-size: clamp(1rem, .35vw + .95rem, 1.25rem);
-      color: var(--muted);
-      font-weight: 400;
-    }
-    .title strong{
-      font-weight: 600;
-      background: linear-gradient(90deg, var(--gold0), var(--saff1));
-      -webkit-background-clip:text;
-      background-clip:text;
-      color: transparent;
-    }
+        .content {
+            padding: 22px 20px 26px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 12px;
+        }
 
-    .coming{
-      margin: 18px 0 10px;
-      font-family: Cinzel, serif;
-      font-weight: 700;
-      font-size: clamp(1.4rem, 2vw + 1rem, 2.8rem);
-      letter-spacing: .18em;
-      text-transform: uppercase;
+        @media (min-width: 860px) {
+            .content {
+                padding: 34px;
+            }
+        }
 
-      background: linear-gradient(90deg, var(--gold0), var(--gold2), #fff, var(--gold2), var(--gold0));
-      background-size: 240% 100%;
-      -webkit-background-clip:text;
-      background-clip:text;
-      color: transparent;
+        .brand {
+            font-weight: 950;
+            letter-spacing: -.4px;
+            font-size: clamp(22px, 3.2vw, 34px);
+            margin: 0;
+        }
 
-      text-shadow: 0 20px 50px rgba(255,179,71,.18);
-      animation: shine 4.8s ease-in-out infinite;
-    }
-    @keyframes shine{
-      0%{ background-position: 0% 50%; }
-      50%{ background-position: 100% 50%; }
-      100%{ background-position: 0% 50%; }
-    }
+        /* ---- COMING SOON (sparkle text) ---- */
+        .coming {
+            margin: 0;
+            line-height: 0.98;
+            text-transform: uppercase;
+            letter-spacing: .16em;
+            font-weight: 1000;
+            font-size: clamp(48px, 9.5vw, 90px);
+            filter: drop-shadow(0 10px 30px rgba(0, 0, 0, .10));
+        }
 
-    .desc{
-      margin: 0;
-      color: rgba(245,241,255,.82);
-      line-height: 1.75;
-      font-size: 1.02rem;
-      max-width: 60ch;
-    }
+        .coming .line {
+            display: block;
+            position: relative;
+            color: #0f1420;
+            /* base fill */
+            text-shadow: 0 2px 0 rgba(255, 255, 255, .75);
+        }
 
-    .divider{
-      height: 1px;
-      width: 100%;
-      margin: 20px 0 16px;
-      background: linear-gradient(90deg, transparent, rgba(255,211,109,.45), transparent);
-    }
+        /* star layer inside text */
+        .coming .line::after {
+            content: attr(data-text);
+            position: absolute;
+            inset: 0;
+            color: transparent;
+            -webkit-text-fill-color: transparent;
+            background-image:
+                radial-gradient(circle, rgba(255, 255, 255, .98) 0 1.1px, transparent 1.9px),
+                radial-gradient(circle, rgba(255, 211, 106, .95) 0 1px, transparent 1.8px),
+                radial-gradient(circle, rgba(98, 181, 229, .70) 0 0.9px, transparent 1.7px),
+                radial-gradient(circle, rgba(255, 255, 255, .65) 0 0.8px, transparent 1.5px);
+            background-size: 120px 120px, 180px 180px, 210px 210px, 90px 90px;
+            background-position: 0 0, 30px 60px, 90px 20px, 10px 40px;
+            -webkit-background-clip: text;
+            background-clip: text;
+            mix-blend-mode: screen;
+            opacity: .95;
+            filter:
+                drop-shadow(0 0 7px rgba(255, 255, 255, .20)) drop-shadow(0 0 12px rgba(255, 211, 106, .16));
+            animation: sparkleDrift 6.5s linear infinite, sparkleTwinkle 1.8s ease-in-out infinite;
+            pointer-events: none;
+        }
 
-    .footerline{
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px 14px;
-      align-items:center;
-      justify-content:space-between;
-      color: rgba(245,241,255,.72);
-      font-size: .95rem;
-    }
+        /* shimmering highlight sweep inside text */
+        /* ---- COMING SOON (black text + white sparkles only) ---- */
+        .coming {
+            margin: 0;
+            line-height: 0.98;
+            text-transform: uppercase;
+            letter-spacing: .16em;
+            font-weight: 1000;
+            font-size: clamp(48px, 9.5vw, 90px);
+            filter: drop-shadow(0 10px 30px rgba(0, 0, 0, .10));
+        }
 
-    .pill{
-      padding: 10px 12px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(0,0,0,.20);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-    }
+        .coming .line {
+            display: block;
+            position: relative;
+            color: #000;
+            /* base text = black */
+            text-shadow: none;
+            /* keep it clean black */
+        }
 
-    @media (max-width: 980px){
-      .wrap{ grid-template-columns: 1fr; }
-      .portrait img{ height: min(54vh, 560px); }
-      .footerline{ justify-content:center; text-align:center; }
-    }
-    @media (max-width: 520px){
-      .badge{ left: 12px; right: 12px; }
-      .coming{ letter-spacing: .14em; }
-      .desc{ font-size: .98rem; }
-    }
+        /* white star layer inside text */
+        .coming .line::after {
+            content: attr(data-text);
+            position: absolute;
+            inset: 0;
+            color: transparent;
+            -webkit-text-fill-color: transparent;
 
-    @media (prefers-reduced-motion: reduce){
-      .aurora, .portrait-frame::before, .coming{ animation: none !important; }
-      canvas#cosmos{ display:none; }
-    }
-  </style>
+            /* stars (white only) */
+            background-image:
+                radial-gradient(circle, rgba(255, 255, 255, 1) 0 1.1px, transparent 1.9px),
+                radial-gradient(circle, rgba(255, 255, 255, .95) 0 1px, transparent 1.8px),
+                radial-gradient(circle, rgba(255, 255, 255, .85) 0 0.9px, transparent 1.7px),
+                radial-gradient(circle, rgba(255, 255, 255, .70) 0 0.8px, transparent 1.5px);
+
+            background-size: 120px 120px, 180px 180px, 210px 210px, 90px 90px;
+            background-position: 0 0, 30px 60px, 90px 20px, 10px 40px;
+
+            -webkit-background-clip: text;
+            background-clip: text;
+
+            /* keep overlay white; no colored blending */
+            mix-blend-mode: normal;
+            opacity: .95;
+            filter:
+                drop-shadow(0 0 10px rgba(255, 255, 255, .28)) drop-shadow(0 0 18px rgba(255, 255, 255, .18));
+
+            animation: sparkleDrift 6.5s linear infinite, sparkleTwinkle 1.8s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        /* white shimmer sweep inside text */
+        .coming .line::before {
+            content: attr(data-text);
+            position: absolute;
+            inset: 0;
+            color: transparent;
+            -webkit-text-fill-color: transparent;
+
+            background: linear-gradient(110deg,
+                    transparent 0%,
+                    rgba(255, 255, 255, 0) 38%,
+                    rgba(255, 255, 255, .70) 48%,
+                    rgba(255, 255, 255, 0) 58%,
+                    transparent 100%);
+
+            background-size: 220% 100%;
+            background-position: -30% 0%;
+
+            -webkit-background-clip: text;
+            background-clip: text;
+            mix-blend-mode: normal;
+            opacity: .45;
+
+            animation: shimmer 2.9s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes sparkleDrift {
+            0% {
+                background-position: 0 0, 30px 60px, 90px 20px, 10px 40px;
+            }
+
+            100% {
+                background-position: 160px 110px, 230px 180px, -40px 160px, 200px -40px;
+            }
+        }
+
+        @keyframes sparkleTwinkle {
+
+            0%,
+            100% {
+                opacity: .55;
+                filter: brightness(1) drop-shadow(0 0 8px rgba(255, 255, 255, .22));
+            }
+
+            50% {
+                opacity: 1;
+                filter: brightness(1.45) drop-shadow(0 0 14px rgba(255, 255, 255, .30));
+            }
+        }
+
+        @keyframes shimmer {
+            0% {
+                background-position: -40% 0%;
+                opacity: .18;
+            }
+
+            45% {
+                opacity: .50;
+            }
+
+            100% {
+                background-position: 140% 0%;
+                opacity: .18;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+
+            .coming .line::after,
+            .coming .line::before {
+                animation: none !important;
+            }
+        }
+
+
+        @keyframes sparkleDrift {
+            0% {
+                background-position: 0 0, 30px 60px, 90px 20px, 10px 40px;
+            }
+
+            100% {
+                background-position: 160px 110px, 230px 180px, -40px 160px, 200px -40px;
+            }
+        }
+
+        @keyframes sparkleTwinkle {
+
+            0%,
+            100% {
+                opacity: .70;
+                filter: brightness(1) saturate(1.05) drop-shadow(0 0 7px rgba(255, 255, 255, .18));
+            }
+
+            50% {
+                opacity: 1;
+                filter: brightness(1.35) saturate(1.2) drop-shadow(0 0 12px rgba(255, 255, 255, .26));
+            }
+        }
+
+        @keyframes shimmer {
+            0% {
+                background-position: -40% 0%;
+                opacity: .25;
+            }
+
+            45% {
+                opacity: .62;
+            }
+
+            100% {
+                background-position: 140% 0%;
+                opacity: .25;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+
+            .coming .line::after,
+            .coming .line::before {
+                animation: none !important;
+            }
+        }
+
+        .underline {
+            height: 7px;
+            width: min(300px, 76%);
+            border-radius: 999px;
+            background: linear-gradient(90deg, var(--gold), var(--saffron), var(--rose));
+            opacity: .98;
+            box-shadow: 0 10px 26px rgba(255, 179, 0, .18);
+        }
+
+        .name {
+            margin: 8px 0 0;
+            font-weight: 950;
+            font-size: clamp(18px, 2.8vw, 24px);
+            line-height: 1.25;
+        }
+
+        .work {
+            margin: 0;
+            color: #5c636b;
+            font-size: 15.5px;
+            font-weight: 800;
+            letter-spacing: .2px;
+        }
+
+        .note {
+            margin-top: 8px;
+            color: var(--muted);
+            font-size: 13.5px;
+            line-height: 1.5;
+        }
+    </style>
 </head>
 
 <body>
-  <!-- Animated celestial background (stars + planets + shooting stars) -->
-  <canvas id="cosmos" aria-hidden="true"></canvas>
+    <canvas id="starfield" aria-hidden="true"></canvas>
+    <div class="auraOverlay" aria-hidden="true"></div>
 
-  <div class="aurora" aria-hidden="true"></div>
-  <div class="pattern" aria-hidden="true"></div>
+    <main class="wrap">
+        <section class="card" aria-label="Coming soon page">
+            <div class="grid">
+                <div class="media">
+                    <div class="imgBorder">
+                        <img class="photo" src="image.png" alt="Religious site photo" />
+                    </div>
+                </div>
 
-  <main class="hero">
-    <section class="wrap" aria-label="Coming Soon">
+                <div class="content">
+                    <p class="brand">Jai Maa Darbar</p>
 
-      <div class="card portrait">
-        <div class="portrait-frame">
-          <img src="guruji.png" alt="Portrait of Guruji" />
-          <div class="badge">
-            <div class="small">Darbar</div>
-            <div class="darbar">Jai Maa Darbar</div>
-          </div>
-        </div>
-      </div>
+                    <h1 class="coming" aria-label="Coming Soon">
+                        <span class="line" data-text="COMING">COMING</span>
+                        <span class="line" data-text="SOON">SOON</span>
+                    </h1>
 
-      <div class="card copy">
-        <div class="label"><span class="dot"></span> A sacred space is being prepared</div>
+                    <div class="underline" aria-hidden="true"></div>
 
-        <h1>Acharya Krishna Gopal Pathak Shri Ji</h1>
-        <p class="title"><strong>Maa Baglamukhi Sadhak</strong></p>
+                    <p class="name">Acharya Krishna Gopal Pathak Shri Ji</p>
+                    <p class="work">Maa Baglamukhi Sadhak</p>
 
-        <div class="coming">Coming Soon</div>
-        <p class="desc">
-          The official website is under divine creation. Soon you will find updates, darshan information,
-          and spiritual guidance from <strong>Jai Maa Darbar</strong>.
-        </p>
+                    <p class="note">Website is under preparation.</p>
+                </div>
+            </div>
+        </section>
+    </main>
 
-        <div class="divider"></div>
+    <script>
+        (function () {
+            const canvas = document.getElementById("starfield");
+            const ctx = canvas.getContext("2d", { alpha: true });
 
-        <div class="footerline">
-          <span class="pill">Blessings • Bhakti • Shakti</span>
-          <span class="pill">Launching shortly</span>
-        </div>
-      </div>
+            const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+            let dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+            let w = 0, h = 0;
 
-    </section>
-  </main>
+            const STAR_COUNT_BASE = 260;
+            const stars = [];
 
-  <script>
-    // Cosmos background: more stars + more shooting stars + planets (canvas)
-    (() => {
-      const canvas = document.getElementById('cosmos');
-      const ctx = canvas.getContext('2d', { alpha: true });
+            function rand(min, max) { return Math.random() * (max - min) + min; }
 
-      const reduceMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches;
-      if (reduceMotion) return;
+            function resize() {
+                w = Math.floor(window.innerWidth);
+                h = Math.floor(window.innerHeight);
+                dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
 
-      let w = 0, h = 0, dpr = 1;
-      let starsNear = [], starsFar = [];
-      let shooting = [];
-      let planets = [];
-      let time = 0;
+                canvas.width = Math.floor(w * dpr);
+                canvas.height = Math.floor(h * dpr);
+                canvas.style.width = w + "px";
+                canvas.style.height = h + "px";
+                ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-      const rand = (a, b) => a + Math.random() * (b - a);
+                const area = w * h;
+                const count = Math.max(180, Math.min(620, Math.floor(STAR_COUNT_BASE * (area / (1000 * 700)))));
 
-      function resize() {
-        dpr = Math.min(window.devicePixelRatio || 1, 2);
-        w = Math.floor(window.innerWidth * dpr);
-        h = Math.floor(window.innerHeight * dpr);
-        canvas.width = w;
-        canvas.height = h;
+                stars.length = 0;
+                for (let i = 0; i < count; i++) {
+                    const size = rand(0.7, 2.4);
+                    const speed = rand(0.02, 0.10) * (size / 2);
+                    const tw = rand(0.9, 2.6);
+                    const phase = rand(0, Math.PI * 2);
 
-        // More stars (still controlled for performance)
-        const area = (w * h) / (dpr * dpr); // base on CSS pixels
-        const farCount  = Math.floor(area / 9000);  // many tiny stars
-        const nearCount = Math.floor(area / 18000); // fewer bigger stars
+                    const isGold = Math.random() < 0.22;
+                    const color = isGold ? { r: 255, g: 211, b: 106 } : { r: 255, g: 255, b: 255 };
 
-        starsFar = Array.from({ length: farCount }, () => ({
-          x: Math.random() * w,
-          y: Math.random() * h,
-          r: rand(0.35, 1.05) * dpr,
-          a: rand(0.10, 0.55),
-          tw: rand(0.0015, 0.009),
-          s: rand(0.02, 0.10) * dpr, // slow drift
-          hue: Math.random() < 0.08 ? rand(35, 55) : (Math.random() < 0.04 ? rand(250, 295) : rand(205, 225))
-        }));
+                    stars.push({
+                        x: rand(0, w),
+                        y: rand(0, h),
+                        r: size,
+                        vx: rand(-speed, speed),
+                        vy: rand(-speed, speed),
+                        baseA: rand(0.40, 0.95),
+                        twinkle: tw,
+                        phase,
+                        color
+                    });
+                }
+            }
 
-        starsNear = Array.from({ length: nearCount }, () => ({
-          x: Math.random() * w,
-          y: Math.random() * h,
-          r: rand(0.9, 2.2) * dpr,
-          a: rand(0.18, 0.95),
-          tw: rand(0.002, 0.012),
-          s: rand(0.06, 0.35) * dpr, // faster drift
-          hue: Math.random() < 0.14 ? rand(35, 58) : (Math.random() < 0.06 ? rand(250, 295) : rand(200, 222))
-        }));
+            function drawBackgroundGlow() {
+                const g = ctx.createRadialGradient(w * 0.5, h * 0.45, Math.min(w, h) * 0.1, w * 0.5, h * 0.5, Math.max(w, h) * 0.65);
+                g.addColorStop(0, "rgba(255,211,106,0.06)");
+                g.addColorStop(0.35, "rgba(98,181,229,0.05)");
+                g.addColorStop(1, "rgba(0,0,0,0.38)");
+                ctx.fillStyle = g;
+                ctx.fillRect(0, 0, w, h);
+            }
 
-        // Planets (fixed-ish positions with gentle drift/parallax)
-        planets = [
-          makePlanet({
-            x: 0.12 * w, y: 0.22 * h, r: 58 * dpr,
-            fill1: 'rgba(255,211,109,0.95)', fill2: 'rgba(255,122,24,0.55)',
-            ring: true, ringTilt: -0.45, ringAlpha: 0.55,
-            glow: 'rgba(255,179,71,0.18)',
-            driftX: 0.010 * dpr, driftY: 0.004 * dpr
-          }),
-          makePlanet({
-            x: 0.86 * w, y: 0.70 * h, r: 74 * dpr,
-            fill1: 'rgba(160,100,255,0.85)', fill2: 'rgba(255,255,255,0.25)',
-            ring: false,
-            glow: 'rgba(160,100,255,0.16)',
-            driftX: -0.008 * dpr, driftY: -0.004 * dpr
-          }),
-          makePlanet({
-            x: 0.78 * w, y: 0.18 * h, r: 36 * dpr,
-            fill1: 'rgba(120,210,255,0.70)', fill2: 'rgba(255,211,109,0.20)',
-            ring: true, ringTilt: 0.65, ringAlpha: 0.40,
-            glow: 'rgba(120,210,255,0.12)',
-            driftX: -0.012 * dpr, driftY: 0.003 * dpr
-          })
-        ];
-      }
+            function frame(t) {
+                ctx.clearRect(0, 0, w, h);
+                drawBackgroundGlow();
 
-      function makePlanet(opts) {
-        return {
-          x: opts.x, y: opts.y, r: opts.r,
-          fill1: opts.fill1, fill2: opts.fill2,
-          ring: !!opts.ring,
-          ringTilt: opts.ringTilt ?? 0.4,
-          ringAlpha: opts.ringAlpha ?? 0.35,
-          glow: opts.glow ?? 'rgba(255,255,255,0.08)',
-          dx: opts.driftX ?? 0.006,
-          dy: opts.driftY ?? 0.003,
-          phase: rand(0, Math.PI * 2)
-        };
-      }
+                for (const s of stars) {
+                    if (!reduceMotion.matches) {
+                        s.x += s.vx;
+                        s.y += s.vy;
+                        if (s.x < -10) s.x = w + 10;
+                        if (s.x > w + 10) s.x = -10;
+                        if (s.y < -10) s.y = h + 10;
+                        if (s.y > h + 10) s.y = -10;
+                    }
 
-      function drawNebula() {
-        // big subtle haze
-        const g1 = ctx.createRadialGradient(w*0.62, h*0.35, 0, w*0.62, h*0.35, Math.max(w,h)*0.58);
-        g1.addColorStop(0, 'rgba(160,100,255,0.10)');
-        g1.addColorStop(0.28, 'rgba(255,122,24,0.06)');
-        g1.addColorStop(0.65, 'rgba(255,211,109,0.05)');
-        g1.addColorStop(1, 'rgba(0,0,0,0)');
-        ctx.fillStyle = g1;
-        ctx.fillRect(0,0,w,h);
+                    const tw = 0.55 + 0.45 * Math.sin((t * 0.001) * s.twinkle + s.phase);
+                    const a = Math.min(1, Math.max(0.10, s.baseA * tw));
 
-        // second haze pocket
-        const g2 = ctx.createRadialGradient(w*0.22, h*0.78, 0, w*0.22, h*0.78, Math.max(w,h)*0.42);
-        g2.addColorStop(0, 'rgba(255,211,109,0.07)');
-        g2.addColorStop(0.5, 'rgba(120,210,255,0.04)');
-        g2.addColorStop(1, 'rgba(0,0,0,0)');
-        ctx.fillStyle = g2;
-        ctx.fillRect(0,0,w,h);
-      }
+                    ctx.beginPath();
+                    ctx.fillStyle = `rgba(${s.color.r}, ${s.color.g}, ${s.color.b}, ${a * 0.34})`;
+                    ctx.arc(s.x, s.y, s.r * 2.7, 0, Math.PI * 2);
+                    ctx.fill();
 
-      function drawStars(list, glowFactor) {
-        for (const s of list) {
-          // drift
-          s.y += s.s;
-          if (s.y > h + 12) s.y = -12;
+                    ctx.beginPath();
+                    ctx.fillStyle = `rgba(${s.color.r}, ${s.color.g}, ${s.color.b}, ${a})`;
+                    ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+                    ctx.fill();
+                }
 
-          // twinkle
-          s.a += Math.sin((time * s.tw) + (s.x * 0.008)) * 0.006;
-          s.a = Math.max(0.06, Math.min(0.98, s.a));
+                requestAnimationFrame(frame);
+            }
 
-          // core
-          ctx.beginPath();
-          ctx.fillStyle = `hsla(${s.hue}, 90%, 85%, ${s.a})`;
-          ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-          ctx.fill();
-
-          // glow
-          if (s.r > 1.2 * dpr) {
-            ctx.beginPath();
-            ctx.fillStyle = `hsla(${s.hue}, 95%, 88%, ${s.a * glowFactor})`;
-            ctx.arc(s.x, s.y, s.r * 5.0, 0, Math.PI * 2);
-            ctx.fill();
-          }
-        }
-      }
-
-      function drawPlanet(p) {
-        // gentle drift (bounded)
-        const drift = (amp, ph) => Math.sin(time * 0.006 + ph) * amp;
-
-        const x = p.x + drift(14 * dpr, p.phase);
-        const y = p.y + drift(10 * dpr, p.phase + 1.7);
-
-        // outer glow
-        const glow = ctx.createRadialGradient(x, y, 0, x, y, p.r * 2.6);
-        glow.addColorStop(0, p.glow);
-        glow.addColorStop(1, 'rgba(0,0,0,0)');
-        ctx.fillStyle = glow;
-        ctx.beginPath();
-        ctx.arc(x, y, p.r * 2.6, 0, Math.PI * 2);
-        ctx.fill();
-
-        // ring behind planet
-        if (p.ring) drawRing(x, y, p.r, p.ringTilt, p.ringAlpha, true);
-
-        // body
-        const body = ctx.createRadialGradient(x - p.r*0.35, y - p.r*0.35, p.r*0.2, x, y, p.r);
-        body.addColorStop(0, p.fill1);
-        body.addColorStop(1, p.fill2);
-        ctx.fillStyle = body;
-        ctx.beginPath();
-        ctx.arc(x, y, p.r, 0, Math.PI * 2);
-        ctx.fill();
-
-        // subtle texture bands
-        ctx.globalAlpha = 0.16;
-        ctx.strokeStyle = 'rgba(255,255,255,0.75)';
-        ctx.lineWidth = 1.2 * dpr;
-        for (let i = -2; i <= 2; i++) {
-          const yy = y + i * (p.r * 0.28);
-          ctx.beginPath();
-          ctx.ellipse(x, yy, p.r * 0.92, p.r * 0.24, p.ringTilt * 0.35, 0, Math.PI * 2);
-          ctx.stroke();
-        }
-        ctx.globalAlpha = 1;
-
-        // ring in front (gives depth)
-        if (p.ring) drawRing(x, y, p.r, p.ringTilt, p.ringAlpha, false);
-      }
-
-      function drawRing(x, y, r, tilt, alpha, behind) {
-        // draw ellipse ring with simple depth mask using globalCompositeOperation trick
-        // We draw full ring, then mask half based on behind/forward using a clipped rectangle rotated.
-        ctx.save();
-        ctx.translate(x, y);
-        ctx.rotate(tilt);
-
-        // ring gradient stroke
-        const grad = ctx.createLinearGradient(-r*1.6, 0, r*1.6, 0);
-        grad.addColorStop(0, `rgba(255,211,109,${alpha * 0.18})`);
-        grad.addColorStop(0.5, `rgba(255,255,255,${alpha * 0.55})`);
-        grad.addColorStop(1, `rgba(160,100,255,${alpha * 0.20})`);
-
-        // clip: behind = upper half, front = lower half (in rotated space)
-        ctx.beginPath();
-        if (behind) {
-          ctx.rect(-r*3, -r*3, r*6, r*3); // top half
-        } else {
-          ctx.rect(-r*3, 0, r*6, r*3);   // bottom half
-        }
-        ctx.clip();
-
-        ctx.globalAlpha = 1;
-        ctx.strokeStyle = grad;
-        ctx.lineWidth = Math.max(1.4 * dpr, r * 0.08);
-        ctx.beginPath();
-        ctx.ellipse(0, 0, r * 1.55, r * 0.55, 0, 0, Math.PI * 2);
-        ctx.stroke();
-
-        // soft ring glow
-        ctx.globalAlpha = 0.15;
-        ctx.lineWidth = Math.max(2.4 * dpr, r * 0.12);
-        ctx.beginPath();
-        ctx.ellipse(0, 0, r * 1.62, r * 0.60, 0, 0, Math.PI * 2);
-        ctx.stroke();
-
-        ctx.restore();
-        ctx.globalAlpha = 1;
-      }
-
-      function spawnShootingStar() {
-        // more frequent, varied directions
-        const fromLeft = Math.random() < 0.55;
-        const startX = fromLeft ? rand(-0.25*w, 0.25*w) : rand(0.75*w, 1.25*w);
-        const startY = rand(-0.15*h, 0.45*h);
-
-        const speed = rand(14, 26) * dpr;
-        const angle = fromLeft ? rand(0.20, 0.48) : rand(Math.PI - 0.48, Math.PI - 0.20);
-
-        const vx = Math.cos(angle) * speed;
-        const vy = Math.sin(angle) * speed;
-
-        shooting.push({
-          x: startX,
-          y: startY,
-          vx, vy,
-          len: rand(260, 520) * dpr,
-          life: 0,
-          max: rand(18, 34),
-          width: rand(1.6, 2.6) * dpr
-        });
-      }
-
-      function drawShootingStars() {
-        // spawn rate: more shooting stars
-        if (Math.random() < 0.035) spawnShootingStar(); // increased
-
-        // update + draw
-        shooting = shooting.filter(st => st.life < st.max);
-        for (const st of shooting) {
-          st.life++;
-          st.x += st.vx;
-          st.y += st.vy;
-
-          const px = st.x;
-          const py = st.y;
-
-          const nx = st.vx / Math.hypot(st.vx, st.vy);
-          const ny = st.vy / Math.hypot(st.vx, st.vy);
-
-          const tx = px - nx * st.len;
-          const ty = py - ny * st.len;
-
-          const g = ctx.createLinearGradient(px, py, tx, ty);
-          g.addColorStop(0, 'rgba(255,255,255,0.95)');
-          g.addColorStop(0.22, 'rgba(255,211,109,0.55)');
-          g.addColorStop(0.55, 'rgba(160,100,255,0.22)');
-          g.addColorStop(1, 'rgba(255,255,255,0)');
-
-          ctx.strokeStyle = g;
-          ctx.lineWidth = st.width;
-          ctx.lineCap = 'round';
-          ctx.beginPath();
-          ctx.moveTo(px, py);
-          ctx.lineTo(tx, ty);
-          ctx.stroke();
-
-          // bright head
-          ctx.beginPath();
-          ctx.fillStyle = 'rgba(255,255,255,0.8)';
-          ctx.arc(px, py, st.width * 1.2, 0, Math.PI * 2);
-          ctx.fill();
-        }
-      }
-
-      function frame() {
-        time++;
-
-        ctx.clearRect(0, 0, w, h);
-
-        // background haze
-        drawNebula();
-
-        // far stars (tiny)
-        drawStars(starsFar, 0.06);
-
-        // planets (behind brighter stars for depth)
-        for (const p of planets) drawPlanet(p);
-
-        // near stars
-        drawStars(starsNear, 0.12);
-
-        // extra: a few sparkling "cluster" points (cheap + wow)
-        if (Math.random() < 0.08) {
-          const x = rand(0, w), y = rand(0, h);
-          ctx.globalAlpha = 0.22;
-          ctx.fillStyle = 'rgba(255,255,255,1)';
-          ctx.beginPath();
-          ctx.arc(x, y, rand(0.8, 1.6) * dpr, 0, Math.PI*2);
-          ctx.fill();
-          ctx.globalAlpha = 1;
-        }
-
-        // more shooting stars
-        drawShootingStars();
-
-        requestAnimationFrame(frame);
-      }
-
-      resize();
-      window.addEventListener('resize', resize, { passive: true });
-      frame();
-    })();
-  </script>
+            window.addEventListener("resize", resize, { passive: true });
+            resize();
+            requestAnimationFrame(frame);
+        })();
+    </script>
 </body>
+
 </html>
